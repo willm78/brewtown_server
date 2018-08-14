@@ -1,0 +1,13 @@
+{
+  "name": "brewtown_server",
+  "version": "0.0.1",
+  "description": "GraphQL server for Brewtown",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.0.0",
+    "graphql": "^0.13.2",
+    "graphql-import": "^0.6.0"
+  }
+}
