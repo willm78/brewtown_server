@@ -1,4 +1,4 @@
-enum Sortby {
+enum SortBy {
     # Sort by a combination of freshness and score, using Reddit's algorithm
     HOT
     # Newest entries first
@@ -8,92 +8,92 @@ enum Sortby {
 }
 
 enum UseHop {
-    Boil
-    Dry_Hop
-    Mash
-    First_Wort
-    Aroma
+    boil
+    dryHop
+    mash
+    firstWort
+    aroma
 }
 
 enum TypeHop {
-    Bittering
-    Aroma
-    Both
+    bittering
+    aroma
+    both
 }
 
 enum FormHop {
-    Pellet
-    Plug
-    Leaf
+    pellet
+    plug
+    leaf
 }
 
 enum TypeFermentable {
-    Grain
-    Sugar
-    Extract
-    Dry_Extract
-    Adjunct
+    grain
+    sugar
+    extract
+    dryExtract
+    adjunct
 }
 
 enum TypeYeast {
-    Ale
-    Lager
-    Wheat
-    Wine
-    Champagne
+    ale
+    lager
+    wheat
+    wine
+    champagne
 }
 
 enum FormYeast {
-    Liquid
-    Dry
-    Slant
-    Culture
+    liquid
+    dry
+    slant
+    culture
 }
 
 enum FlocculationYeast {
-    Low
-    Medium
-    High
-    Very_High
+    low
+    medium
+    high
+    veryHigh
 }
 
 enum TypeMisc {
-    Spice
-    Fining
-    Water
-    Agent
-    Herb
-    Flavor
-    Other
+    spice
+    fining
+    water
+    agent
+    herb
+    flavor
+    other
 }
 
 enum UseMisc {
-    Boil
-    Mash
-    Primary
-    Secondary
-    Bottling
+    boil
+    mash
+    primary
+    secondary
+    bottling
 }
 
 enum TypeStyle {
-    Lager
-    Ale
-    Mead
-    Wheat
-    Mixed
-    Cider
+    lager
+    ale
+    mead
+    wheat
+    mixed
+    cider
 }
 
 enum TypeMashStep {
-    Infusion
-    Temperature
-    Decoction
+    infusion
+    temperature
+    decoction
 }
 
 enum TypeRecipe {
-    Extract
-    Partial_Mash
-    All_Grain
+    extract
+    partialMash
+    allGrain
 }
 
 schema {
@@ -104,55 +104,55 @@ schema {
 type Query {
     hops(
         # The sort order
-        sortby: Sortby!,
+        sortBy: SortBy!,
         # The number of items to skip, for pagination
         offset: Int,
         # The number of items to fetch at a time, starting from offset
         limit: Int): [Hop]
 
     fermentables(
-        sortby: Sortby!,
+        sortBy: SortBy!,
         offset: Int,
         limit: Int): [Fermentable]
 
     yeasts(
-        sortby: Sortby!,
+        sortBy: SortBy!,
         offset: Int,
         limit: Int): [Yeast]
 
     miscs(
-        sortby: Sortby!,
+        sortBy: SortBy!,
         offset: Int,
         limit: Int): [Misc]
 
     waters(
-        sortby: Sortby!,
+        sortBy: SortBy!,
         offset: Int,
         limit: Int): [Water]
 
     styles(
-        sortby: Sortby!,
+        sortBy: SortBy!,
         offset: Int,
         limit: Int): [Style]
-
-    mash_steps(
-        sortby: Sortby!,
+    
+    mashs(
+        sortBy: SortBy!,
         offset: Int,
-        limit: Int): [MashStep]
+        limit: Int): [Mash]
 
     recipes(
-        sortby: Sortby!,
+        sortBy: SortBy!,
         offset: Int,
         limit: Int): [Recipe]
 
     equipments(
-        sortby: Sortby!,
+        sortBy: SortBy!,
         offset: Int,
         limit: Int): [Equipment]
 }
 
 type Hop {
-    id: ID
+    id: ID!
     name: String
     version: String
     alpha: String
@@ -165,7 +165,7 @@ type Hop {
     beta: Float
     hsi: Float
     origin: String
-    substitues: [Hop]
+    substitutes: [Hop]
     humulene: Float
     caryophyllene: Float
     cohumulone: Float
@@ -173,62 +173,62 @@ type Hop {
 }
 
 type Fermentable {
-    id: ID
+    id: ID!
     name: String
     version: String
     type: TypeFermentable
     amount: Float
     yield: Float
     color: Float
-    add_after_boil: Boolean
+    addAfterBoil: Boolean
     origin: String
     supplier: String
     notes: String
-    coarse_fine_diff: Float
+    coarseFineDiff: Float
     moisture: Float
-    diastatic_power: Float
+    diastaticPower: Float
     protein: Float
-    max_in_batch: Float
-    recommend_mash: Boolean
-    ibu_gal_per_lb: Float
+    maxInBatch: Float
+    recommendMash: Boolean
+    ibuGalPerLb: Float
 }
 
 type Yeast {
-    id: ID
+    id: ID!
     name: String
     version: String
     type: TypeYeast
     form: FormYeast
     amount: Float
-    amount_is_weight: Boolean
+    amountIsWeight: Boolean
     laboratory: String
-    product_id: String
-    min_temperature: Float
-    max_temperature: Float
+    productId: String
+    minTemperature: Float
+    maxTemperature: Float
     flocculation: FlocculationYeast
     attenuation: Float
     notes: String
-    best_for: String
-    times_cultured: Int
-    max_reuse: Int
-    add_to_secondary: Boolean
+    bestFor: String
+    timesCultured: Int
+    maxReuse: Int
+    addToSecondary: Boolean
 }
 
 type Misc {
-    id: ID
+    id: ID!
     name: String
     version: String
     type: TypeMisc
     use: UseMisc
     time: Float
     amount: Float
-    amount_is_weight: Boolean
-    use_for: String
+    amountIsWeight: Boolean
+    useFor: String
     notes: String
 }
 
 type Water {
-    id: ID
+    id: ID!
     name: String
     version: String
     amount: Float
@@ -243,45 +243,45 @@ type Water {
 }
 
 type Equipment {
-    id: ID
+    id: ID!
     name: String
     version: String
-    boil_size: Float
-    batch_size: Float
-    tun_volume: Float
-    tun_weight: Float
-    tun_specific_heat: Float
-    top_up_water: Float
-    trub_chiller_loss: Float
-    evap_rate: Float
-    boil_time: Float
-    calc_boil_volume: Boolean
-    lauter_deadspace: Float
-    top_up_kettle: Float
-    hop_utilization: Float
+    boilSize: Float
+    batchSize: Float
+    tunVolume: Float
+    tunWeight: Float
+    tunSpecificHeat: Float
+    topUpWater: Float
+    trubChillerLoss: Float
+    evapRate: Float
+    boilTime: Float
+    calcBoilVolume: Boolean
+    lauterDeadspace: Float
+    topUpKettle: Float
+    hopUtilization: Float
     notes: String
 }
 
 type Style {
-    id: ID
+    id: ID!
     name: String
     category: String
     version: String
-    category_number: String
-    style_letter: String
-    style_guide: String
+    categoryNumber: String
+    styleLetter: String
+    styleGuide: String
     type: TypeStyle
-    og_min: Float
-    fg_min: Float
-    fg_max: Float
-    ibu_min: Float
-    ibu_max: Float
-    color_min: Float
-    color_max: Float
-    carb_min: Float
-    carb_max: Float
-    abv_min: Float
-    abv_max: Float
+    ogMin: Float
+    fgMin: Float
+    fgMax: Float
+    ibuMin: Float
+    ibuMax: Float
+    colorMin: Float
+    colorMax: Float
+    carbMin: Float
+    carbMax: Float
+    abvMin: Float
+    abvMax: Float
     notes: String
     profile: String
     ingredients: String
@@ -289,44 +289,44 @@ type Style {
 }
 
 type MashStep {
-    id: ID
+    id: ID!
     name: String
     version: String
     type: TypeMashStep
-    infuse_amount: Float
-    step_temp: Float
-    step_time: Float
-    ramp_time: Float
-    end_temp: Float
+    infuseAmount: Float
+    stepTemp: Float
+    stepTime: Float
+    rampTime: Float
+    endTemp: Float
 }
 
 type Mash {
-    id: ID
+    id: ID!
     name: String
     version: String
-    grain_temp: Float
-    mash_steps: [MashStep]
+    grainTemp: Float
+    mashSteps: [MashStep]
     notes: String
-    tun_temp: Float
-    sparge_temp: Float
+    tunTemp: Float
+    spargeTemp: Float
     ph: Float
-    tun_weight: Float
-    tun_specific_heat: Float
-    equip_adjust: Boolean
+    tunWeight: Float
+    tunSpecificHeat: Float
+    equipAdjust: Boolean
 }
 
 type Recipe {
-    id: ID
+    id: ID!
     name: String
     version: String
     type: TypeRecipe
     style: [Style]
     equipment: [Equipment]
     brewer: String
-    asst_brewer: String
-    batch_size: Float
-    boil_size: Float
-    boil_time: Float
+    asstBrewer: String
+    batchSize: Float
+    boilSize: Float
+    boilTime: Float
     efficiency: Float
     hops: [Hop]
     fermentables: [Fermentable]
@@ -335,24 +335,24 @@ type Recipe {
     waters: [Water]
     mash: Mash
     notes: String
-    taste_notes: String
-    taste_rating: Float
+    tasteNotes: String
+    tasteRating: Float
     og: Float
     fg: Float
-    fermentation_stages: Int
-    primary_age: Float
-    primary_temp: Float
-    secondary_age: Float
-    secondary_temp: Float
-    tertiary_age: Float
-    tertiary_temp: Float
+    fermentationStages: Int
+    primaryAge: Float
+    primaryTemp: Float
+    secondaryAge: Float
+    secondaryTemp: Float
+    tertiaryAge: Float
+    tertiaryTemp: Float
     age: Float
-    age_temp: Float
+    ageTemp: Float
     date: String
     carbonation: Float
-    forced_carbonation: Boolean
-    priming_sugar_name: String
-    carbonation_temp: Float
-    priming_sugar_equiv: Float
-    keg_priming_factor: Float
+    forcedCarbonation: Boolean
+    primingSugarName: String
+    carbonationTemp: Float
+    primingSugarEquiv: Float
+    kegPrimingFactor: Float
 }
